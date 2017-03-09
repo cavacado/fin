@@ -1,14 +1,18 @@
 # fin
 
 This is the repository for my final proj in WDI.
+
 It is pretty basic, it is a RESTful backend server serving json objects to the client at fin-vue.
+
 It implements basic CRUD actions but it also integrates JSON Web Tokens for its authentication.
+
 Also, the ORM being used is Sequelize.js which is not one of the ORMs taught through the course.
 
 ## Getting Started
 
 create a .env file with a key value pair SECRET=somesecret
 npm install and node app.js
+
 server should start on http://localhost:8080
 
 ### How to Use
