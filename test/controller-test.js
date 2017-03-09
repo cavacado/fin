@@ -7,6 +7,7 @@ const db = require('../server/models/index');
 
 var globalToken;
 var globalUserId;
+var globalBookId;
 
 describe('Dropping db...', function(){
   //db clearing starts from controllers!
@@ -42,12 +43,78 @@ describe('Dropping db...', function(){
         done();
       });
     });
-    it('should allow an authorized put request since token was sent along with request',function(done){
+    it('should allow an authorized PUT request since token was sent along with request',function(done){
       request(app).put(`/${globalUserId}`).set('Authorization', `Bearer ${globalToken}`).set('Accept', 'application/json').send({
         name: 'lalalalala',
       }).end(function(err, res) {
         expect(res.body).to.be.json;
         expect(res.body.name).to.equal('lalalalala');
+        done();
+      });
+    });
+    it('should allow an authorized GET request since token was sent along with request',function(done){
+      request(app).get(`/`).set('Authorization', `Bearer ${globalToken}`).end(function(err, res) {
+        expect(res.body).to.be.json;
+        expect(res.body.msg).to.equal('root for users page');
+        expect(res.status).to.equal(200);
+        done();
+      });
+    });
+    it('should allow an authorized POST request to booksController since token was sent along with request',function(done){
+      request(app).post(`/${globalUserId}/books`)
+      .set('Authorization', `Bearer ${globalToken}`)
+      .set('Accept', 'application/json').send({
+        title: 'a book title',
+        author: 'some author',
+        description: 'describ'
+      }).end(function(err, res) {
+        globalBookId = res.body.id;
+        expect(res.body).to.be.json;
+        expect(res.status).to.equal(200);
+        done();
+      });
+    });
+    it('should allow an authorized PUT request to booksController since token was sent along with request',function(done){
+      request(app).put(`/books/${globalBookId}`)
+      .set('Authorization', `Bearer ${globalToken}`)
+      .set('Accept', 'application/json').send({
+        title: 'another book title',
+      }).end(function(err, res) {
+        expect(res.body).to.be.json;
+        expect(res.body.title).to.equal('another book title');
+        expect(res.status).to.equal(200);
+        done();
+      });
+    });
+    it('should allow an authorized GET (all) request since token was sent along with request',function(done){
+      request(app).get(`/${globalUserId}/books`).set('Authorization', `Bearer ${globalToken}`).end(function(err, res) {
+        expect(res.body).to.be.json;
+        expect(res.body).to.be.a('array');
+        expect(res.status).to.equal(200);
+        done();
+      });
+    });
+    it('should allow an authorized GET (one) request since token was sent along with request',function(done){
+      request(app).get(`/books/${globalBookId}`).set('Authorization', `Bearer ${globalToken}`).end(function(err, res) {
+        expect(res.body).to.be.json;
+        expect(res.body.author).to.equal('some author');
+        expect(res.status).to.equal(200);
+        done();
+      });
+    });
+    it('should allow an authorized DELETE request since token was sent along with request',function(done){
+      request(app).delete(`/books/${globalBookId}`).set('Authorization', `Bearer ${globalToken}`).end(function(err, res) {
+        expect(res.body).to.be.json;
+        expect(res.body.msg).to.equal('book successfully deleted');
+        expect(res.status).to.equal(200);
+        done();
+      });
+    });
+    it('should allow an authorized DELETE request since token was sent along with request',function(done){
+      request(app).delete(`/${globalUserId}`).set('Authorization', `Bearer ${globalToken}`).end(function(err, res) {
+        expect(res.body).to.be.json;
+        expect(res.body.msg).to.equal('user deleted successfully');
+        expect(res.status).to.equal(200);
         done();
       });
     });
