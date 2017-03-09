@@ -52,7 +52,9 @@ What did you use to build it, list the technologies, plugins, gems, packages etc
 
 ## Workflow
 
-Workflow was super disorganised. Abandoned a previous project due to myself falling sick and getting frustrated with sequelize hasMany and BelongsToMany through something.
+Workflow was super disorganised.
+
+Abandoned a previous project due to myself falling sick and getting frustrated with sequelize hasMany and BelongsToMany through something.
 
 So reduced the scope by a huge amount, just 2 models. But the SPA/ RESTful architecture remains largely intact.
 
