@@ -22,8 +22,11 @@ so for this basic application, there are 11 api end points available. Of which 2
 So the list of routes and its corresponding controllers are:
 
 ```
+//unprotected
 router.post('/register') usersController#create
 router.post('/login') usersController#auth
+
+//protected
 router.put('/:userId') usersController#update
 router.delete('/:userId') usersController#destroy
 router.post('/:userId/books') booksController#create
