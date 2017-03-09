@@ -1,64 +1,67 @@
 # fin
 
-This is the starter code for WDI projects. Please update this README file with information specific to your project. Replace this paragraph for instance, with a short description of your project. Then update the sections below. Refer to your project specificaion for instructions on how to submit your projects.
+This is the repository for my final proj in WDI.
+It is pretty basic, it is a RESTful backend server serving json objects to the client at fin-vue.
+It implements basic CRUD actions but it also integrates JSON Web Tokens for its authentication.
+Also, the ORM being used is Sequelize.js which is not one of the ORMs taught through the course.
 
 ## Getting Started
 
-Provide instructions here about how to get your project running on our local machine. Do we just need to clone and open a certain file or do we need to install anything first.
-
-### Prerequisites
-
-What is needed to install and run the project, how do we install them
-
-```
-Code example
-```
+create a .env file with a key value pair SECRET=somesecret
+npm install and node app.js
+server should start on http://localhost:8080
 
 ### How to Use
 
-A step by step guide on how to install and use the project, for example if this is a game, how do we play it.
+so for this basic application, there are 11 api end points available. Of which 2 are unprotected; the rest are protected by JSON web tokens, which are supplied when the user logs in.
 
-
-```
-Code example
-```
-
-More steps...
+So the list of routes and its corresponding controllers are:
 
 ```
-until finished
+router.post('/register') usersController#create
+router.post('/login') usersController#auth
+router.put('/:userId') usersController#update
+router.delete('/:userId') usersController#destroy
+router.post('/:userId/books') booksController#create
+router.put('/books/:bookId') booksController#update
+router.get('/:userId/books') booksController#list
+router.get('/books/:bookId') booksController#show
+router.delete('/books/:bookId') booksController#destroy
 ```
-
 
 ## Tests
 
-Did you write automated tests? If so, how do we run them.
+yes test were written but they were written after writing the code(bad practice i know), they cover all api end points and most model validations
 
-
+so in order to run the tests:
 ```
-Code example
+npm run test
 ```
 
 ## Live Version
 
-Where is this deployed online (github pages, heroku etc), give us the link and any access details we need.
+The api backend is hosted on this website:
 
 ## Built With
 
 What did you use to build it, list the technologies, plugins, gems, packages etc.
 
-* [jQuery](http://jquery.com/) - jQuery for example is something you likely used
+* cors
+* sequelize
+* jsonwebtoken
 
 ## Workflow
 
-Did you write user stories, draw wireframes, use task tracking, produce ERDs? Did you use source control, with regular commits? Include links to them here.
+Workflow was super disorganised. Abandoned a previous project due to myself falling sick and getting frustrated with sequelize hasMany and BelongsToMany through something.
+
+So reduced the scope by a huge amount, just 2 models. But the SPA/ RESTful architecture remains largely intact.
 
 ## Authors
 
 Did you collaborate with others on this project, list them here
 
-* **John McClain** - *Responsible for keeping vests white* - [GithubUserName](https://github.com/GithubUserName)
+* **Just me**
 
 ## Acknowledgments
 
-* Hat tip to anyone who's code was used, for example [this was a useful starting point for creating this template](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2).
+* Nil
