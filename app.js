@@ -31,7 +31,7 @@ app.use('/', expressJWT({ secret: process.env.SECRET}).unless({ method: 'POST'})
 app.use('/', expressJWT({ secret: process.env.SECRET}), bookRoutes);
 app.use((err,req,res,next) => {
   if (err.name === 'UnauthorizedError') {
-    res.status(401).send({ msg: 'You need an authorization token to view this information! '})
+    res.status(401).send({ msg: 'You need an authorization token to view this information!'})
   }
 })
 

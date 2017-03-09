@@ -8,7 +8,10 @@ module.exports = {
       email: req.body.email,
       password: req.body.password,
     }).then(user => res.status(200).send({ msg: 'user created successfully' }))
-      .catch(error => res.status(400).send(error));
+      .catch(error => {
+        console.log(error);
+        res.status(400).send(error);
+      });
   },
 
   update(req, res) {
