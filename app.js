@@ -9,6 +9,7 @@ const jwt = require('jsonwebtoken');
 const PORT = process.env.PORT || 8080;
 const userRoutes = require('./server/routes/users');
 const bookRoutes = require('./server/routes/books');
+const secret = process.env.SECRET || 'superduperlongassssnnoooogsfdfsecret'
 
 const app = express();
 
@@ -27,8 +28,8 @@ app.use(cors());
 app.use(customMiddleware);
 
 
-app.use('/', expressJWT({ secret: process.env.SECRET}).unless({ method: 'POST'}), userRoutes);
-app.use('/', expressJWT({ secret: process.env.SECRET}), bookRoutes);
+app.use('/', expressJWT({ secret: secret}).unless({ method: 'POST'}), userRoutes);
+app.use('/', expressJWT({ secret: secret}), bookRoutes);
 app.use((err,req,res,next) => {
   if (err.name === 'UnauthorizedError') {
     res.status(401).send({ msg: 'You need an authorization token to view this information!'})
